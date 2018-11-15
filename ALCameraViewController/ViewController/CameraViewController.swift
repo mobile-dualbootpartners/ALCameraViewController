@@ -45,6 +45,7 @@ public extension CameraViewController {
 
 open class CameraViewController: UIViewController {
     
+    private var statusBarShouldBeHidden = true
     var didUpdateViews = false
     var croppingParameters: CroppingParameters
     var animationRunning = false
@@ -183,7 +184,7 @@ open class CameraViewController: UIViewController {
     }
 
     open override var prefersStatusBarHidden: Bool {
-        return true
+        return statusBarShouldBeHidden
     }
     
     open override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
@@ -282,6 +283,12 @@ open class CameraViewController: UIViewController {
      */
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        statusBarShouldBeHidden = true
+        UIView.animate(withDuration: animationDuration) {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+        
         cameraView.startSession()
         addCameraObserver()
         addRotateObserver()
@@ -557,6 +564,10 @@ open class CameraViewController: UIViewController {
             self?.onCompletion?(image, asset)
         }
         
+        statusBarShouldBeHidden = false
+        UIView.animate(withDuration: animationDuration) {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
         present(imagePicker, animated: true) { [weak self] in
             self?.cameraView.stopSession()
         }

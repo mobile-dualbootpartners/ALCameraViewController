@@ -38,8 +38,6 @@ public class PhotoLibraryViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        setNeedsStatusBarAppearanceUpdate()
-        
         let buttonImage = UIImage(named: "libraryCancel", in: CameraGlobals.shared.bundle, compatibleWith: nil)?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: buttonImage,
