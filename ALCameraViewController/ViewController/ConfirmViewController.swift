@@ -171,7 +171,14 @@ public class ConfirmViewController: UIViewController, UIScrollViewDelegate {
 		let scaleWidth = _size.width / image.size.width
 		let scaleHeight = _size.height / image.size.height
 
-		return min(scaleWidth, scaleHeight)
+        var scale: CGFloat
+        if croppingParameters.isEnabled {
+            scale = max(scaleWidth, scaleHeight)
+        } else {
+            scale = min(scaleWidth, scaleHeight)
+        }
+        
+        return scale
 	}
 	
 	private func calculateScrollViewInsets(_ frame: CGRect) -> UIEdgeInsets {
