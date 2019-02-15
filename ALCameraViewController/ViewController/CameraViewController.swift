@@ -534,9 +534,7 @@ open class CameraViewController: UIViewController {
                 self?.hideSpinner(spinner)
             }
             .onFailure { [weak self] error in
-                self?.toggleButtons(enabled: true)
-                self?.showNoPermissionsView(library: true)
-                self?.cameraView.preview.isHidden = false
+                self?.layoutCameraResult(uiImage: image)
                 self?.hideSpinner(spinner)
             }
             .save()
